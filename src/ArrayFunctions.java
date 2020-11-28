@@ -40,6 +40,7 @@ public class ArrayFunctions {
     }
 
     public int determinantOfMatrix(int[][] mat, int n) {
+        // TODO Get this to work for arrays larger than a 3*3
         int num1, num2, det = 1, index,
                 total = 1; // Initialize result
 
