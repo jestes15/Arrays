@@ -181,8 +181,6 @@ public class ArrayFunctions {
             int pivot2 = a[e4];
             a[e2] = a[left];
             a[e4] = a[right];
-            while (a[++less] < pivot1);
-            while (a[--great] > pivot2);
             outer:
             for (int k = less - 1; ++k <= great; ) {
                 int ak = a[k];
