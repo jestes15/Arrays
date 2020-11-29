@@ -10,7 +10,6 @@ public class Main {
         ArrayFunctions aFunc = new ArrayFunctions();
         classBufferedWriter BuffWrite = new classBufferedWriter();
         Random rand = new Random();
-        int returnVal;
         boolean finishingVal = true;
 
         while (finishingVal) {
@@ -41,34 +40,35 @@ public class Main {
                     }
                 }
             }
+            StringBuilder SBuild = new StringBuilder();
+            LocalDateTime time = LocalDateTime.now();
+            int currentTimeMIN = time.getMinute();
+            int currentTimeHOUR = time.getHour();
+            int currentTimeDAY = time.getDayOfMonth();
+            int currentTimeMONTH = time.getMonthValue();
+            int currentTimeYEAR = time.getYear();
+            SBuild.append("Array for attempt at ").append(currentTimeHOUR).append(":").append(currentTimeMIN).
+                    append(" on ").append(currentTimeMONTH).append("/").append(currentTimeDAY).append("/").
+                    append(currentTimeYEAR).append("\n").append("======================================================\n");
+            SBuild.append("The original array:\n");
+            for (int[] ints : arr) SBuild.append(Arrays.toString(ints)).append("\n");
+
             boolean loop = true;
+            boolean transposed = false;
             while (loop) {
                 System.out.print("What kind of matrix calculation do you want to do?\n:transpose: transposes the entire inputted array\n" +
-                        ":determinate: Determinate of the input matrix\n" +
                         ":sort: Sort each partition of the array, but no the array in its entirety\n" +
                         ":print: Prints the array\n" +
                         ":copy: Copies the array to a temp array to be used to be printed.\n" +
-                        ":ToFile: Prints array to a save file(auto-ran at end)\n:::> ");
+                        ":sortTran: Sort the transposed version of this array\n" +
+                        ":SBuild: Show current information in the StringBuilder to be written to the file at the end of the operation\n:::> ");
 
                 String userInputOfMatrixCalculations = sc.next();
 
                 switch (userInputOfMatrixCalculations) {
-                    case "ToFile":
-                        LocalDateTime time = LocalDateTime.now();
-                        int currentTimeMIN = time.getMinute();
-                        int currentTimeHOUR = time.getHour();
-                        int currentTimeDAY = time.getDayOfMonth();
-                        int currentTimeMONTH = time.getMonthValue();
-                        int currentTimeYEAR = time.getYear();
-                        StringBuilder msg = new StringBuilder("Array for attempt at " + currentTimeHOUR + ":" + currentTimeMIN + " on " + currentTimeMONTH +
-                                "/" + currentTimeDAY + "/" + currentTimeYEAR + "\n" +
-                                "======================================================\n");
-                        for (int[] ints : arr) msg.append(Arrays.toString(ints)).append("\n");
 
-
-                        BuffWrite.writeBufferedWriter(msg.toString(), "\\ArrayListDir\\", "ArrayList");
-                        System.out.println(msg);
-                        // TODO use this writing function to write everything to a file for the records
+                    case "SBuild":
+                        System.out.println(SBuild.toString());
                         break;
 
                     case "print":
@@ -85,6 +85,28 @@ public class Main {
                         System.out.println("Operation was successful");
                         break;
 
+                    case "sortTran":
+                        aFunc.setArr(arr);
+                        aFunc.transpose();
+                        int[][] tempForSort = aFunc.getTempArr();
+                        if (!transposed) {
+                            SBuild.append("\nThe Transposed array:\n");
+                            for (int[] ints : aFunc.getTempArr()) SBuild.append(Arrays.toString(ints)).append("\n");
+                            SBuild.append("\n");
+                            transposed = true;
+
+                        }
+                        for (int[] ints : tempForSort) {
+                            ArrayFunctions.sort(ints, 0, ints.length - 1, true);
+                        }
+                        System.out.println("The sorted array of the transposed version is:\n");
+                        for (int[] ints : tempForSort) System.out.println(Arrays.toString(ints));
+
+                        SBuild.append("The sorted version of the transposed array is:\n");
+                        for (int[] ints : tempForSort) SBuild.append(Arrays.toString(ints)).append("\n");
+                        SBuild.append("\n");
+                        break;
+
                     case "transpose":
                         aFunc.setArr(arr);
                         aFunc.transpose();
@@ -92,20 +114,13 @@ public class Main {
                         for (int[] ints : arr) System.out.println(Arrays.toString(ints));
                         System.out.println();
                         for (int[] ints : aFunc.getTempArr()) System.out.println(Arrays.toString(ints));
-                        System.out.println();
-                        for (int[] ints : arr) System.out.println(Arrays.toString(ints));
-                        break;
-
-                    case "determinate":
-                        if (aFunc.N == aFunc.W) {
-                            System.out.println("\nCalculating the determinate of your matrix");
-                            aFunc.setA(arr);
-                            returnVal = aFunc.determinantOfMatrix(arr, aFunc.N);
-                            System.out.printf("The determinate of the matrix is: %d\n", returnVal);
-                        } else {
-                            System.out.println("I'm sorry, but the matrix you used is not a square matrix, therefore " +
-                                    "the determinate cannot be determined.");
+                        if (!transposed) {
+                            transposed = true;
+                            SBuild.append("\nThe Transposed array:\n");
+                            for (int[] ints : aFunc.getTempArr()) SBuild.append(Arrays.toString(ints)).append("\n");
+                            SBuild.append("\n");
                         }
+
                         break;
 
                     case "sort":
@@ -115,7 +130,7 @@ public class Main {
                         for (int x = 0; x < length; x++) {
                             System.arraycopy(arr[x], 0, tempArr[x], 0, width);
                         }
-
+                        SBuild.append("The sorted version of the array is:\n");
 
                         System.out.println("The original array is:");
                         for (int[] ints : tempArr) System.out.println(Arrays.toString(ints));
@@ -125,8 +140,8 @@ public class Main {
                         }
                         System.out.println("The new sorted array is: ");
                         for (int[] ints : tempArr) System.out.println(Arrays.toString(ints));
-                        System.out.println();
-                        for (int[] ints : arr) System.out.println(Arrays.toString(ints));
+                        for (int[] ints : tempArr) SBuild.append(Arrays.toString(ints)).append("\n");
+                        SBuild.append("\n");
                         break;
                 }
                 System.out.print("Would you like to do another calculation on the same matrix?\n:::> ");
@@ -139,6 +154,8 @@ public class Main {
                         break;
                 }
             }
+            SBuild.append("End of this array operation\n");
+            BuffWrite.writeBufferedWriter(SBuild.toString(), "\\ArrayListDir\\", "ArrayList");
             System.out.print("Would you like to do any calculations on another matrix?\n:::> ");
             String finalUserInput = sc.next();
             switch (finalUserInput) {
