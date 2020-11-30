@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
 public class ArrayFunctions {
     private static final int INSERTION_SORT_THRESHOLD = 47;
 
@@ -208,5 +211,40 @@ public class ArrayFunctions {
             sort(a, left, less - 1, leftmost);
             sort(a, great + 1, right, false);
         }
+    }
+}
+
+class SBuildArray {
+    private final StringBuilder msg;
+
+    SBuildArray() {
+        this.msg = new StringBuilder();
+    }
+
+    public String getMsg() {
+        return msg.toString();
+    }
+
+    public void initialize(int[][] array) {
+        LocalDateTime time = LocalDateTime.now();
+        int currentTimeMIN = time.getMinute();
+        int currentTimeHOUR = time.getHour();
+        int currentTimeDAY = time.getDayOfMonth();
+        int currentTimeMONTH = time.getMonthValue();
+        int currentTimeYEAR = time.getYear();
+        msg.append("\nArray for attempt at ").append(currentTimeHOUR).append(":").append(currentTimeMIN).
+                append(" on ").append(currentTimeMONTH).append("/").append(currentTimeDAY).append("/").
+                append(currentTimeYEAR).append("\n").append("======================================================\n");
+        msg.append("The original array:\n");
+        for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
+    }
+
+    public void append(String appendMsg) {
+        msg.append(appendMsg);
+    }
+
+    public void append(String header, int[][] array) {
+        msg.append(header);
+        for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
     }
 }
