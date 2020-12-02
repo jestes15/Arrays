@@ -9,10 +9,6 @@ public class ArrayFunctions {
     private int lengthOfArray;
     private int widthOfArray;
 
-    int[][] A;
-    int N;
-    int W;
-
     public void setArr(int[][] array) {
         this.arr = array;
         this.widthOfArray = array[0].length;
@@ -34,12 +30,6 @@ public class ArrayFunctions {
             }
         }
         setTempArr(tempArr);
-    }
-
-    public void setA(int[][] array) {
-        this.A = array;
-        this.N = array.length;
-        this.W = array[0].length;
     }
 
     public static void sort(int[] a, int left, int right, boolean leftmost) {

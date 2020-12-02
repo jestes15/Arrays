@@ -13,12 +13,12 @@ public class Main {
         Random rand = new Random();
         boolean finishingVal = true;
 
-        newFile.setGetDir("ArrayListDir");
+        newFile.setGetDir("\\ArrayListDir\\");
         newFile.setGetName("ArrayList");
         String returnVal = newFile.createFile();
         switch (returnVal) {
             case "File Created":
-                System.out.println("The file has been created and is ready fo use");
+                System.out.println("The file has been created and is ready for use");
                 break;
 
             case "File Exists":
