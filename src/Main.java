@@ -17,20 +17,10 @@ public class Main {
         newFile.setGetName("ArrayList");
         String returnVal = newFile.createFile();
         switch (returnVal) {
-            case "File Created":
-                System.out.println("The file has been created and is ready for use");
-                break;
-
-            case "File Exists":
-                System.out.println("File ready");
-                break;
-
-            case "An error has occurred":
-                System.out.println("An error has occurred");
-                break;
-
-            default:
-                System.out.println("An unhandled choice has been passed");
+            case "File Created" -> System.out.println("The file has been created and is ready for use");
+            case "File Exists" -> System.out.println("File ready");
+            case "An error has occurred" -> System.out.println("An error has occurred");
+            default -> System.out.println("An unhandled choice has been passed");
         }
 
         while (finishingVal) {
@@ -66,12 +56,15 @@ public class Main {
             boolean loop = true;
             boolean transposed = false;
             while (loop) {
-                System.out.print("What kind of matrix calculation do you want to do?\n:transpose: transposes the entire inputted array\n" +
-                        ":sort: Sort each partition of the array, but no the array in its entirety\n" +
-                        ":print: Prints the array\n" +
-                        ":copy: Copies the array to a temp array to be used to be printed.\n" +
-                        ":sortTran: Sort the transposed version of this array\n" +
-                        ":SBuild: Show current information in the StringBuilder to be written to the file at the end of the operation\n:::> ");
+                System.out.print("""
+                        What kind of matrix calculation do you want to do?\s
+                        :transpose:     transposes the entire inputted array\s
+                        :sort:          Sort each partition of the array, but no the array in its entirety\s
+                        :print:         Prints the array\s
+                        :copy:          Copies the array to a temp array to be used to be printed\s
+                        :sortTran:      Sort the transposed version of this arrays\s
+                        :SBuild:        Show current information in the StringBuilder to be written to the file at the end of the operation\s
+                        :::> \s""");
 
                 String userInputOfMatrixCalculations = sc.next();
 
