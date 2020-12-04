@@ -11,6 +11,7 @@ public class Main {
         classBufferedWriter BuffWrite = new classBufferedWriter();
         CreateFile newFile = new CreateFile();
         Random rand = new Random();
+        SplitString SS = new SplitString();
         boolean finishingVal = true;
 
         newFile.setGetDir("\\ArrayListDir\\");
@@ -141,6 +142,35 @@ public class Main {
 
                         sBuild.append("The sorted version of the array is:\n", tempArr);
                         sBuild.append("\n");
+                    }
+                    case "testing" -> {
+                        sc.nextLine();
+                        System.out.print("""
+                                What string do you want put into an array?\s
+                                msr> \r
+                                """);
+                        String userIn = sc.nextLine();
+                        SS.setMsgWithPun(userIn);
+                        userIn = SS.replacePunctuation(userIn);
+                        SS.setMsg(userIn);
+
+                        String[] charArr = SS.splitMsg();
+                        String errorThrown = null;
+
+                        for (String error : charArr) {
+                            switch (error) {
+                                case "test" -> errorThrown = "no";
+                                case "testing" -> errorThrown = "yes";
+                                default -> errorThrown = "unknown";
+                            }
+                            if (errorThrown.equals("no") || errorThrown.equals("yes")) {
+                                break;
+                            }
+                        }
+                        System.out.println(Arrays.toString(charArr));
+                        System.out.println(errorThrown);
+                        System.out.printf("With Punctuation: %s\nWithout: %s", SS.getMsgWithPun(), SS.getMsg());
+                        System.out.println();
                     }
                 }
                 System.out.print("Would you like to do another calculation on the same matrix?\n:::> ");

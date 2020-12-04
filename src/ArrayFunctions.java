@@ -238,3 +238,36 @@ class SBuildArray {
         for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
     }
 }
+
+class SplitString {
+    private String msg = "";
+    private String msgWithPun = "";
+
+    public void setMsg(String userInput) {
+        this.msg = userInput;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+    public void setMsgWithPun(String userInput) {
+        this.msgWithPun = userInput;
+    }
+
+    public String getMsgWithPun() {
+        return msgWithPun;
+    }
+
+    public String[] splitMsg() {
+        return msg.split(" ");
+    }
+
+    public String replacePunctuation(String userIn) {
+        String[] charSet = {",", ".", "`", "!", "@", "#", "$", "%", "^","&", "*", "(", ")", "_", "+", "{", "}", "|", ":", "\"", "<",
+                ">", "?", "~", "-", "=", ";"};
+        for (String s : charSet) {
+            userIn = userIn.replace(s, "");
+        }
+        return userIn;
+    }
+}
