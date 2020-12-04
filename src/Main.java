@@ -28,8 +28,10 @@ public class Main {
             int z = sc.nextInt();
             System.out.println("How big do you want the second dimension of the array to be?");
             int b = sc.nextInt();
+
             boolean userInput;
             int[][] arr = new int[z][b];
+
             System.out.println("Do you want to input the array yourself or see an example? (Myself/Default)");
             userInput = sc.next().equals("Myself");
             if (userInput) {
@@ -70,15 +72,11 @@ public class Main {
 
                 switch (userInputOfMatrixCalculations) {
 
-                    case "SBuild":
-                        System.out.println(sBuild.getMsg());
-                        break;
+                    case "SBuild" -> System.out.println(sBuild.getMsg());
 
-                    case "print":
-                        for (int[] ints : arr) System.out.println(Arrays.toString(ints));
-                        break;
+                    case "print" -> { for (int[] ints : arr) System.out.println(Arrays.toString(ints)); }
 
-                    case "copy":
+                    case "copy" -> {
                         int lengthOfArr = arr.length;
                         int widthOfArr = arr[0].length;
                         int[][] tempArray = new int[lengthOfArr][widthOfArr];
@@ -86,9 +84,9 @@ public class Main {
                             System.arraycopy(arr[x], 0, tempArray[x], 0, widthOfArr);
                         }
                         System.out.println("Operation was successful");
-                        break;
+                }
 
-                    case "sortTran":
+                    case "sortTran" -> {
                         aFunc.setArr(arr);
                         aFunc.transpose();
                         int[][] tempForSort = aFunc.getTempArr();
@@ -107,9 +105,9 @@ public class Main {
 
                         sBuild.append("The sorted version of the transposed array is:\n", tempForSort);
                         sBuild.append("\n");
-                        break;
+                    }
 
-                    case "transpose":
+                    case "transpose" -> {
                         aFunc.setArr(arr);
                         aFunc.transpose();
                         System.out.println();
@@ -122,10 +120,9 @@ public class Main {
                             sBuild.append("\nThe transposed array:\n", aFunc.getTempArr());
                             sBuild.append("\n");
                         }
+                    }
 
-                        break;
-
-                    case "sort":
+                    case "sort" -> {
                         int length = arr.length;
                         int width = arr[0].length;
                         int[][] tempArr = new int[length][width];
@@ -144,16 +141,13 @@ public class Main {
 
                         sBuild.append("The sorted version of the array is:\n", tempArr);
                         sBuild.append("\n");
-                        break;
+                    }
                 }
                 System.out.print("Would you like to do another calculation on the same matrix?\n:::> ");
                 String userInputInLoop = sc.next();
                 switch (userInputInLoop) {
-                    case "yes":
-                        break;
-                    case "no":
-                        loop = false;
-                        break;
+                    case "yes" -> { }
+                    case "no" -> loop = false;
                 }
             }
             sBuild.append("End of this array operation\n");
@@ -162,11 +156,8 @@ public class Main {
             System.out.print("Would you like to do any calculations on another matrix?\n:::> ");
             String finalUserInput = sc.next();
             switch (finalUserInput) {
-                case "no":
-                    finishingVal = false;
-                    break;
-                case "yes":
-                    break;
+                case "no" -> finishingVal = false;
+                case "yes" -> { }
             }
         }
     }
