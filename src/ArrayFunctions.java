@@ -112,7 +112,7 @@ public class ArrayFunctions {
             outer:
             for (int k = less - 1; ++k <= great; ) {
                 int ak = a[k];
-                if (ak < pivot1) { // Move a[k] to left part
+                if (ak < pivot1) {
                     a[k] = a[less];
                     a[less] = ak;
                     ++less;
