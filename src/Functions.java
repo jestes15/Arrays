@@ -1,8 +1,11 @@
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-public class ArrayFunctions {
+public class Functions {
     private static final int INSERTION_SORT_THRESHOLD = 47;
+
+    boolean[] tempBoolArr;
 
     private int[][] arr;
     private int[][] tempArr;
@@ -21,17 +24,41 @@ public class ArrayFunctions {
         return tempArr;
     }
 
-    public void transpose() {
+    /**
+     * Transposes the array from a private int array
+     * @return**/
+    public NullPointerException transpose() throws IOException {
         int[][] tempArr = new int[widthOfArray][lengthOfArray];
 
         for (int x = 0; x < lengthOfArray; x++) {
             for (int y = 0; y < widthOfArray; y++) {
-                tempArr[y][x] = arr[x][y];
+                try {
+                    tempArr[y][x] = arr[x][y];
+                } catch (NullPointerException e) {
+                    return e;
+                }
             }
         }
         setTempArr(tempArr);
+        return null;
     }
 
+    public void SieveOfEratosthenes(int n) {
+        int intOne, intTwo;
+
+        tempBoolArr[0] = false;
+        tempBoolArr[1] = false;
+
+        for (intOne = 2; intOne < n; intOne++) {
+            tempBoolArr[intOne] = true;
+        }
+
+        for (intOne = 2; intOne < Math.sqrt(n); intOne++) {
+            for (intTwo = intOne * intOne; intTwo < n; intTwo = intTwo + intOne) {
+                tempBoolArr[intTwo] = false;
+            }
+        }
+    }
     public static void sort(int[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
         if (length < INSERTION_SORT_THRESHOLD) {
@@ -211,22 +238,27 @@ class SBuildArray {
         this.msg = new StringBuilder();
     }
 
-    public String getMsg() {
-        return msg.toString();
-    }
-
-    public void initialize(int[][] array) {
+    private StringBuilder getDate() {
+        StringBuilder stringMsg = new StringBuilder();
         LocalDateTime time = LocalDateTime.now();
         int currentTimeMIN = time.getMinute();
         int currentTimeHOUR = time.getHour();
         int currentTimeDAY = time.getDayOfMonth();
         int currentTimeMONTH = time.getMonthValue();
         int currentTimeYEAR = time.getYear();
-        msg.append("\nArray for attempt at ").append(currentTimeHOUR).append(":").append(currentTimeMIN).
+        stringMsg.append(currentTimeHOUR).append(":").append(currentTimeMIN).
                 append(" on ").append(currentTimeMONTH).append("/").append(currentTimeDAY).append("/").
-                append(currentTimeYEAR).append("\n").append("======================================================\n");
-        msg.append("The original array:\n");
-        for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
+                append(currentTimeYEAR);
+        return stringMsg;
+    }
+
+    public String getMsg() {
+        return msg.toString();
+    }
+
+    public void initialize() {
+        msg.append(getDate());
+        msg.append("\n").append("======================================================\n");
     }
 
     public void append(String appendMsg) {
@@ -269,5 +301,28 @@ class SplitString {
             userIn = userIn.replace(s, "");
         }
         return userIn;
+    }
+}
+
+final class OsUtils
+{
+    private static String OS = null;
+    private static String PLATFORM = null;
+
+    public static String getOsName() {
+        if(OS == null) { OS = System.getProperty("os.name"); }
+        return OS;
+    }
+    public static String startOsInfo() {
+        if (PLATFORM == null) { PLATFORM = System.getProperty("os.arch"); }
+        if(OS == null) { OS = System.getProperty("os.name"); }
+        return OS + " " + PLATFORM;
+    }
+
+    public static boolean isWindows() {
+        return getOsName().startsWith("Windows");
+    }
+    public static boolean isUnix() {
+        return getOsName().startsWith("Unix");
     }
 }
