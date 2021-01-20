@@ -1,3 +1,5 @@
+package Functions;
+
 public class MathFunctions {
     private int sum = 1;
 

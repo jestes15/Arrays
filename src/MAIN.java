@@ -2,8 +2,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
+import OsInfo.OsUtils;
+import Functions.*;
 
-public class Main {
+public class MAIN {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         Functions aFunc = new Functions();
@@ -11,7 +13,6 @@ public class Main {
         classBufferedWriter BuffWrite = new classBufferedWriter();
         CreateFile newFile = new CreateFile();
         Random rand = new Random();
-        SplitString SS = new SplitString();
         boolean finishingVal = true;
 
         System.out.println(OsUtils.startOsInfo());
@@ -169,11 +170,11 @@ public class Main {
                                 sc.nextLine();
                                 System.out.print("What string do you want put into an array?");
                                 String userIn = sc.nextLine();
-                                SS.setMsgWithPun(userIn);
-                                userIn = SS.replacePunctuation(userIn);
-                                SS.setMsg(userIn);
+                                sBuild.setMsgWithPun(userIn);
+                                userIn = sBuild.replacePunctuation(userIn);
+                                sBuild.setMsg(userIn);
 
-                                String[] charArr = SS.splitMsg();
+                                String[] charArr = sBuild.splitMsg();
                                 String errorThrown = null;
 
                                 for (String error : charArr) {
@@ -188,7 +189,7 @@ public class Main {
                                 }
                                 System.out.println(Arrays.toString(charArr));
                                 System.out.println(errorThrown);
-                                System.out.printf("With Punctuation: %s\nWithout: %s", SS.getMsgWithPun(), SS.getMsg());
+                                System.out.printf("With Punctuation: %s\nWithout: %s", sBuild.getMsgWithPun(), sBuild.getMsg());
                                 System.out.println();
                             }
                         }
@@ -203,15 +204,20 @@ public class Main {
                 case "Primes" -> {
                     System.out.print("How far do you want me to find prime numbers?\n:::> ");
                     int n = sc.nextInt();
-                    aFunc.tempBoolArr = new boolean[n];
+                    boolean[] array = new boolean[n];
                     for (int x = 0; x < n; x++)
-                        aFunc.tempBoolArr[x] = true;
+                        array[x] = true;
+                    aFunc.setTempBoolArr(array);
                     aFunc.SieveOfEratosthenes(n);
 
                     int numOfPrimes = 0;
                     sBuild.append("The prime numbers that was printed in the operation:\n");
+
+                    boolean[] boolArray = aFunc.getTempBoolArr();
+
+
                     for (int place = 0; place < n; place++) {
-                        if (aFunc.tempBoolArr[place]) {
+                        if (boolArray[place]) {
                             System.out.printf("%d, ", place);
                             sBuild.append(place + ", ");
                             numOfPrimes++;
@@ -223,12 +229,13 @@ public class Main {
                         }
                     }
                     System.out.println();
+                    sBuild.append("\n");
                 }
             }
             sBuild.append("End of this operation\n");
             BuffWrite.writeBufferedWriter(sBuild.getMsg(), "\\ArrayListDir\\", "ArrayList");
 
-            System.out.print("Would you like to do any calculations on another matrix?\n:::> ");
+            System.out.print("Would you like to do any other calculations?\n:::> ");
             String finalUserInput = sc.next();
             switch (finalUserInput) {
                 case "no" -> finishingVal = false;

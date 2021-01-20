@@ -1,3 +1,5 @@
+package Functions;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -17,6 +19,7 @@ public class Functions {
         this.widthOfArray = array[0].length;
         this.lengthOfArray = array.length;
     }
+
     public void setTempArr(int[][] array) {
         this.tempArr = array;
     }
@@ -24,10 +27,13 @@ public class Functions {
         return tempArr;
     }
 
+    public void setTempBoolArr(boolean[] array) {this.tempBoolArr = array;}
+    public boolean[] getTempBoolArr() {return tempBoolArr;}
+
     /**
      * Transposes the array from a private int array
      * @return**/
-    public NullPointerException transpose() throws IOException {
+    public NullPointerException transpose() {
         int[][] tempArr = new int[widthOfArray][lengthOfArray];
 
         for (int x = 0; x < lengthOfArray; x++) {
@@ -59,6 +65,7 @@ public class Functions {
             }
         }
     }
+
     public static void sort(int[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
         if (length < INSERTION_SORT_THRESHOLD) {
@@ -228,101 +235,5 @@ public class Functions {
             sort(a, left, less - 1, leftmost);
             sort(a, great + 1, right, false);
         }
-    }
-}
-
-class SBuildArray {
-    private final StringBuilder msg;
-
-    SBuildArray() {
-        this.msg = new StringBuilder();
-    }
-
-    private StringBuilder getDate() {
-        StringBuilder stringMsg = new StringBuilder();
-        LocalDateTime time = LocalDateTime.now();
-        int currentTimeMIN = time.getMinute();
-        int currentTimeHOUR = time.getHour();
-        int currentTimeDAY = time.getDayOfMonth();
-        int currentTimeMONTH = time.getMonthValue();
-        int currentTimeYEAR = time.getYear();
-        stringMsg.append(currentTimeHOUR).append(":").append(currentTimeMIN).
-                append(" on ").append(currentTimeMONTH).append("/").append(currentTimeDAY).append("/").
-                append(currentTimeYEAR);
-        return stringMsg;
-    }
-
-    public String getMsg() {
-        return msg.toString();
-    }
-
-    public void initialize() {
-        msg.append(getDate());
-        msg.append("\n").append("======================================================\n");
-    }
-
-    public void append(String appendMsg) {
-        msg.append(appendMsg);
-    }
-
-    public void append(String header, int[][] array) {
-        msg.append(header);
-        for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
-    }
-}
-
-class SplitString {
-    private String msg = "";
-    private String msgWithPun = "";
-
-    public void setMsg(String userInput) {
-        this.msg = userInput;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-    public void setMsgWithPun(String userInput) {
-        this.msgWithPun = userInput;
-    }
-
-    public String getMsgWithPun() {
-        return msgWithPun;
-    }
-
-    public String[] splitMsg() {
-        return msg.split(" ");
-    }
-
-    public String replacePunctuation(String userIn) {
-        String[] charSet = {",", ".", "`", "!", "@", "#", "$", "%", "^","&", "*", "(", ")", "_", "+", "{", "}", "|", ":", "\"", "<",
-                ">", "?", "~", "-", "=", ";"};
-        for (String s : charSet) {
-            userIn = userIn.replace(s, "");
-        }
-        return userIn;
-    }
-}
-
-final class OsUtils
-{
-    private static String OS = null;
-    private static String PLATFORM = null;
-
-    public static String getOsName() {
-        if(OS == null) { OS = System.getProperty("os.name"); }
-        return OS;
-    }
-    public static String startOsInfo() {
-        if (PLATFORM == null) { PLATFORM = System.getProperty("os.arch"); }
-        if(OS == null) { OS = System.getProperty("os.name"); }
-        return OS + " " + PLATFORM;
-    }
-
-    public static boolean isWindows() {
-        return getOsName().startsWith("Windows");
-    }
-    public static boolean isUnix() {
-        return getOsName().startsWith("Unix");
     }
 }
