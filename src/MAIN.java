@@ -10,17 +10,12 @@ public class MAIN {
         Scanner sc = new Scanner(System.in);
         Functions aFunc = new Functions();
         SBuildArray sBuild = new SBuildArray();
-        classBufferedWriter BuffWrite = new classBufferedWriter();
-        CreateFile newFile = new CreateFile();
         Random rand = new Random();
         boolean finishingVal = true;
 
         System.out.println(OsUtils.startOsInfo());
-        System.out.println(System.getProperty("os.name") + " " + System.getProperty("os.arch"));
 
-        newFile.setGetDir("\\ArrayListDir\\");
-        newFile.setGetName("ArrayList");
-        String returnVal = newFile.createFile();
+        String returnVal = classBufferedWriter.createFile("\\ArrayListDir\\", "ArrayList");
         switch (returnVal) {
             case "File Created" -> System.out.println("The file has been created and is ready for use");
             case "File Exists" -> System.out.println("File ready");
@@ -106,7 +101,7 @@ public class MAIN {
                                 aFunc.setArr(arr);
                                 NullPointerException e =  aFunc.transpose();
                                 if (e == null) {
-                                    System.out.printf("AN error has occurred: %s", (Object) null);
+                                    System.out.printf("An error has occurred: %s", (Object) null);
                                     break;
                                 }
                                 int[][] tempForSort = aFunc.getTempArr();
@@ -233,7 +228,7 @@ public class MAIN {
                 }
             }
             sBuild.append("End of this operation\n");
-            BuffWrite.writeBufferedWriter(sBuild.getMsg(), "\\ArrayListDir\\", "ArrayList");
+            classBufferedWriter.writeBufferedWriter(sBuild.getMsg(), "\\ArrayListDir\\", "ArrayList");
 
             System.out.print("Would you like to do any other calculations?\n:::> ");
             String finalUserInput = sc.next();

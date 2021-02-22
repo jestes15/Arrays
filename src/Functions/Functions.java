@@ -1,9 +1,7 @@
+//Declares Functions.java to be in the Functions package
 package Functions;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
+//
 public class Functions {
     private static final int INSERTION_SORT_THRESHOLD = 47;
 
@@ -27,13 +25,17 @@ public class Functions {
         return tempArr;
     }
 
-    public void setTempBoolArr(boolean[] array) {this.tempBoolArr = array;}
-    public boolean[] getTempBoolArr() {return tempBoolArr;}
+    public void setTempBoolArr(boolean[] array) {
+        this.tempBoolArr = array;
+    }
+    public boolean[] getTempBoolArr() {
+        return tempBoolArr;
+    }
 
     /**
      * Transposes the array from a private int array
      * @return**/
-    public NullPointerException transpose() {
+    public NullPointerException transpose() throws NullPointerException {
         int[][] tempArr = new int[widthOfArray][lengthOfArray];
 
         for (int x = 0; x < lengthOfArray; x++) {

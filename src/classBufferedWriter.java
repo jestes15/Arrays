@@ -4,8 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 class classBufferedWriter {
-
-    public void writeBufferedWriter(String data, String getDirectory, String getFileName) throws IOException {
+    public static void writeBufferedWriter(String data, String getDirectory, String getFileName) throws IOException {
 
         String errorPath = System.getProperty("user.dir") + "\\ERROR-CACHE\\ERROR-1.txt";
         String path = System.getProperty("user.dir") + getDirectory + getFileName + ".txt";
@@ -33,23 +32,9 @@ class classBufferedWriter {
                 fw.close();
             }
         }
-
-    }
-}
-
-class CreateFile {
-    private String getName;
-    private String getDir;
-
-    public void setGetName(String getName) {
-        this.getName = getName;
     }
 
-    public void setGetDir(String getDir) {
-        this.getDir = getDir;
-    }
-
-    public String createFile() throws IOException {
+    public static String createFile(String getDir, String getName) throws IOException {
         String errorPath = System.getProperty("user.dir") + "\\ERROR-CACHE\\ERROR-1.txt";
 
         try {
@@ -72,4 +57,3 @@ class CreateFile {
         }
     }
 }
-
