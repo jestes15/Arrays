@@ -31,8 +31,8 @@ public class MAIN {
                     :Matrix: Any form of matrix calculation this program currently supports
                     :Primes: Can find a prime number from 0 to a user inputted number
                     :::> \s""");
-            String userChoice = sc.next();
-            switch (userChoice) {
+            String[] userChoice = {sc.next(), ""};
+            switch (userChoice[0]) {
                 case "Matrix" -> {
                     System.out.println("How big do you want the first dimension of the array to be?");
                     int z = sc.nextInt();
@@ -77,16 +77,14 @@ public class MAIN {
                         :sortTran:      Sort the transposed version of this arrays\s
                         :SBuild:        Show current information in the StringBuilder to be written to the file at the end of the operation\s
                         :removePunctuation:  Removes any punctuation from the string\s
+                        :exit:              Exits the program after writing anything in cache to the files\s
                         :::> \s""");
 
                         String userInputOfMatrixCalculations = sc.next();
 
                         switch (userInputOfMatrixCalculations) {
-
                             case "SBuild" -> System.out.println(sBuild.getMsg());
-
                             case "print" -> { for (int[] ints : arr) System.out.println(Arrays.toString(ints)); }
-
                             case "copy" -> {
                                 int lengthOfArr = arr.length;
                                 int widthOfArr = arr[0].length;
@@ -96,7 +94,6 @@ public class MAIN {
                                 }
                                 System.out.println("Operation was successful");
                             }
-
                             case "sortTran" -> {
                                 aFunc.setArr(arr);
                                 NullPointerException e =  aFunc.transpose();
@@ -121,7 +118,6 @@ public class MAIN {
                                 sBuild.append("The sorted version of the transposed array is:\n", tempForSort);
                                 sBuild.append("\n");
                             }
-
                             case "transpose" -> {
                                 aFunc.setArr(arr);
                                 NullPointerException e = aFunc.transpose();
@@ -140,7 +136,6 @@ public class MAIN {
                                     sBuild.append("\n");
                                 }
                             }
-
                             case "sort" -> {
                                 int length = arr.length;
                                 int width = arr[0].length;
@@ -187,12 +182,17 @@ public class MAIN {
                                 System.out.printf("With Punctuation: %s\nWithout: %s", sBuild.getMsgWithPun(), sBuild.getMsg());
                                 System.out.println();
                             }
+                            case "exit" -> {loop = false;}
                         }
-                        System.out.print("Would you like to do another calculation on the same matrix?\n:::> ");
-                        String userInputInLoop = sc.next();
-                        switch (userInputInLoop) {
-                            case "yes" -> { }
-                            case "no" -> loop = false;
+                        userChoice[1] = userInputOfMatrixCalculations;
+                        if (!userInputOfMatrixCalculations.equals("exit")) {
+                            System.out.print("Would you like to do another calculation on the same matrix?\n:::> ");
+                            String userInputInLoop = sc.next();
+                            switch (userInputInLoop) {
+                                case "yes" -> {
+                                }
+                                case "no" -> loop = false;
+                            }
                         }
                     }
                 }
@@ -232,8 +232,14 @@ public class MAIN {
             sBuild.set_fileName("ArrayList");
             sBuild.writeToFile();
 
-            System.out.print("Would you like to do any other calculations?\n:::> ");
-            String finalUserInput = sc.next();
+            String finalUserInput;
+            if (userChoice[1].equals("exit")) {
+                finalUserInput = "no";
+            }
+            else {
+                System.out.print("Would you like to do any other calculations?\n:::> ");
+                finalUserInput = sc.next();
+            }
             switch (finalUserInput) {
                 case "no" -> finishingVal = false;
                 case "yes" -> System.out.println("Continuing!");
