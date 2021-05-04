@@ -1,5 +1,9 @@
 package Functions;
 
+import BuffWriter.BuffWriter;
+import BuffWriter.BuffWriterImpl;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -8,6 +12,9 @@ public class SBuildArray {
 
     private String Smsg = "";
     private String msgWithPun = "";
+
+    private String _dir;
+    private String _fileName;
 
     public SBuildArray() {
         this.msg = new StringBuilder();
@@ -45,8 +52,8 @@ public class SBuildArray {
         for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
     }
 
-    public void setMsg(String userInput) {
-        this.Smsg = userInput;
+    public void setMsg(String Smsg) {
+        this.Smsg = Smsg;
     }
 
     public String getSMsg() {
@@ -73,4 +80,25 @@ public class SBuildArray {
         return userIn;
     }
 
+    public void set_dir(String dir) {
+        _dir = dir;
+    }
+    public String get_dir() {
+        return _dir;
+    }
+
+    public void set_fileName(String fileName) {
+        _fileName = fileName;
+    }
+    public String get_fileName() {
+        return _fileName;
+    }
+
+    public void writeToFile() throws IOException {
+        BuffWriterImpl writer = new BuffWriterImpl();
+        writer.setFileName(get_fileName());
+        writer.setDir(get_dir());
+        writer.setData(getMsg());
+        writer.writeBufferedWriter();
+    }
 }

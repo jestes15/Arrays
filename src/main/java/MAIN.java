@@ -13,7 +13,8 @@ public class MAIN {
         Random rand = new Random();
         boolean finishingVal = true;
 
-        System.out.println(OsUtils.startOsInfo());
+        OsUtils.printSysInfo();
+        OsUtils.writeToFile();
 
         String returnVal = classBufferedWriter.createFile("\\ArrayListDir\\", "ArrayList");
         switch (returnVal) {
@@ -228,13 +229,16 @@ public class MAIN {
                 }
             }
             sBuild.append("End of this operation\n");
-            classBufferedWriter.writeBufferedWriter(sBuild.getMsg(), "\\ArrayListDir\\", "ArrayList");
+            sBuild.set_dir("\\ArrayListDir\\");
+            sBuild.set_fileName("ArrayList");
+            sBuild.writeToFile();
 
             System.out.print("Would you like to do any other calculations?\n:::> ");
             String finalUserInput = sc.next();
             switch (finalUserInput) {
                 case "no" -> finishingVal = false;
-                case "yes" -> { }
+                case "yes" -> System.out.println("Continuing!");
+                default -> System.out.println("That is not a valid option, please try again!");
             }
         }
     }

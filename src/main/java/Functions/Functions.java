@@ -18,15 +18,15 @@ public class Functions {
         this.lengthOfArray = array.length;
     }
 
-    public void setTempArr(int[][] array) {
-        this.tempArr = array;
+    public void setTempArr(int[][] tempArr) {
+        this.tempArr = tempArr;
     }
     public int[][] getTempArr() {
         return tempArr;
     }
 
-    public void setTempBoolArr(boolean[] array) {
-        this.tempBoolArr = array;
+    public void setTempBoolArr(boolean[] tempBoolArr) {
+        this.tempBoolArr = tempBoolArr;
     }
     public boolean[] getTempBoolArr() {
         return tempBoolArr;
