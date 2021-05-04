@@ -32,17 +32,27 @@ public class OsUtils {
         return new struct(getOsName(), startOsInfo(), isWindows(), isUnix());
     }
     public static void writeToFile() {
+
+        SystemInfo si = new SystemInfo();
+        HardwareAbstractionLayer hal = si.getHardware();
+        CentralProcessor cpu = hal.getProcessor();
+        ComputerSystem computerSystem = hal.getComputerSystem();
+
         struct OSInfo = initialize();
         String data = String.format("""
                 OS Name -> %s
                 OS Platform -> %s
-                Is Windows -> %s
-                Is Unix %s
                 Processor -> %s
+                CPU Name Alternative -> %s
                 Architecture -> %s
-                Amount of Processors -> %s""", OSInfo.OSName(), OSInfo.Platform(), OSInfo.windows(), OSInfo.unix(),
-                System.getenv("PROCESSOR_IDENTIFIER"), System.getenv("PROCESSOR_ARCHITECTURE"),
-                System.getenv("NUMBER_OF_PROCESSORS"));
+                Core Count -> %s
+                Logical Processors -> %s
+                Manufacturer -> %s
+                Model -> %s""", OSInfo.OSName(), OSInfo.Platform(),
+                System.getenv("PROCESSOR_IDENTIFIER"), cpu.getProcessorIdentifier().getName(),
+                System.getenv("PROCESSOR_ARCHITECTURE"), cpu.getPhysicalProcessorCount(),
+                System.getenv("NUMBER_OF_PROCESSORS"), computerSystem.getManufacturer(),
+                computerSystem.getModel());
         String dir = "\\ArrayListDir\\";
         String fileName = "ArrayList";
         BuffWriterImpl writer = new  BuffWriterImpl();
@@ -54,38 +64,6 @@ public class OsUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void printSysInfo() {
-        SystemInfo si = new SystemInfo();
-        HardwareAbstractionLayer hal = si.getHardware();
-        CentralProcessor cpu = hal.getProcessor();
-        ComputerSystem computerSystem = hal.getComputerSystem();
-
-        System.out.printf("""
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s
-                        %s%n""",
-                cpu.getLogicalProcessorCount(),
-                cpu.getMaxFreq(),
-                cpu.getProcessorIdentifier().getName(),
-                cpu.getProcessorIdentifier().getFamily(),
-                cpu.getProcessorIdentifier().getIdentifier(),
-                cpu.getProcessorIdentifier().getProcessorID(),
-                cpu.getProcessorIdentifier().getMicroarchitecture(),
-                cpu.getProcessorIdentifier().getVendor(),
-                cpu.getPhysicalProcessorCount(),
-                computerSystem.getManufacturer(),
-                computerSystem.getModel()
-                );
     }
 }
 

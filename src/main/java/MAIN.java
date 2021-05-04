@@ -13,7 +13,6 @@ public class MAIN {
         Random rand = new Random();
         boolean finishingVal = true;
 
-        OsUtils.printSysInfo();
         OsUtils.writeToFile();
 
         String returnVal = classBufferedWriter.createFile("\\ArrayListDir\\", "ArrayList");
@@ -101,8 +100,8 @@ public class MAIN {
                             case "sortTran" -> {
                                 aFunc.setArr(arr);
                                 NullPointerException e =  aFunc.transpose();
-                                if (e == null) {
-                                    System.out.printf("An error has occurred: %s", (Object) null);
+                                if (e != null) {
+                                    System.out.printf("An error has occurred: %s", e.getMessage());
                                     break;
                                 }
                                 int[][] tempForSort = aFunc.getTempArr();
@@ -126,8 +125,8 @@ public class MAIN {
                             case "transpose" -> {
                                 aFunc.setArr(arr);
                                 NullPointerException e = aFunc.transpose();
-                                if (e == null) {
-                                    System.out.printf("An error has occurred: %s\n", (Object) null);
+                                if (e != null) {
+                                    System.out.printf("An error has occurred: %s\n", e.getMessage());
                                     break;
                                 }
                                 System.out.println();
