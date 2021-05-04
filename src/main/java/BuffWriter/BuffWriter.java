@@ -1,7 +1,5 @@
 package BuffWriter;
 
-import Functions.SBuildArray;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -50,6 +48,28 @@ public interface BuffWriter {
                 fw.write(String.valueOf(e));
                 fw.close();
             }
+        }
+    }
+    public static String createFile(String getDir, String getName) throws IOException {
+        String errorPath = System.getProperty("user.dir") + "\\ERROR-CACHE\\ERROR-1.txt";
+
+        try {
+            File myOBJ = new File(System.getProperty("user.dir") + getDir + getName + ".txt");
+            if (myOBJ.createNewFile()) {
+                System.out.println("File created: " +  myOBJ.getName());
+                return "File Created";
+            }
+            else {
+                return "File Exists";
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+
+            FileWriter fw = new FileWriter(errorPath, true); //Writes the error code to the error cache file
+            fw.write(String.valueOf(e));
+            fw.close();
+            return "An error has occurred";
         }
     }
 }

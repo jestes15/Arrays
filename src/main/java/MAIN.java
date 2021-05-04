@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
+
+import BuffWriter.BuffWriter;
 import OsInfo.OsUtils;
 import Functions.*;
 import MatrixCalc.MatrixSecondary;
@@ -13,7 +15,7 @@ public class MAIN {
 
         OsUtils.writeToFile();
 
-        String returnVal = classBufferedWriter.createFile("\\ArrayListDir\\", "ArrayList");
+        String returnVal = BuffWriter.createFile("\\ArrayListDir\\", "ArrayList");
         switch (returnVal) {
             case "File Created" -> System.out.println("The file has been created and is ready for use");
             case "File Exists" -> System.out.println("File ready");

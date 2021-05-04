@@ -67,5 +67,4 @@ public class OsUtils {
     }
 }
 
-record struct(String OSName, String Platform, boolean windows, boolean unix) {
-}
+record struct(String OSName, String Platform, boolean windows, boolean unix) { }
