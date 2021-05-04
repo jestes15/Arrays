@@ -1,16 +1,14 @@
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Random;
 import OsInfo.OsUtils;
 import Functions.*;
+import MatrixCalc.MatrixSecondary;
 
 public class MAIN {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         Functions aFunc = new Functions();
         SBuildArray sBuild = new SBuildArray();
-        Random rand = new Random();
         boolean finishingVal = true;
 
         OsUtils.writeToFile();
@@ -34,39 +32,21 @@ public class MAIN {
             String[] userChoice = {sc.next(), ""};
             switch (userChoice[0]) {
                 case "Matrix" -> {
+                    MatrixSecondary matrixSecondary = new MatrixSecondary();
                     System.out.println("How big do you want the first dimension of the array to be?");
                     int z = sc.nextInt();
                     System.out.println("How big do you want the second dimension of the array to be?");
                     int b = sc.nextInt();
+                    matrixSecondary.setArr(new int[z][b]);
+                    //int[][] arr = new int[z][b];
 
-                    boolean userInput;
-                    int[][] arr = new int[z][b];
+                    System.out.println("Do you want to input the array yourself or see an example? (myself/default)");
+                    String userInput = sc.next();
+                    matrixSecondary.initializeArr(userInput);
 
-                    System.out.println("Do you want to input the array yourself or see an example? (Myself/Default)");
-                    userInput = sc.next().equals("Myself");
-                    if (userInput) {
-                        for (int x = 0; x < z; x++) {
-                            for (int y = 0; y < b; y++) {
-                                System.out.printf("Please input your value for [%d][%d]", x, y);
-                                arr[x][y] = sc.nextInt();
-                            }
-                        }
-                    } else {
-                        int val;
-                        int randVal;
-                        for (int x = 0; x < z; x++) {
-                            for (int y = 0; y < b; y++) {
-                                val = rand.nextInt(40);
-                                randVal = rand.nextInt(40);
-                                arr[x][y] = val * randVal + randVal - val;
-                            }
-                        }
-                    }
-
-                    sBuild.append("The original array:\n", arr);
+                    sBuild.append("The original array:\n", matrixSecondary.getArr());
 
                     boolean loop = true;
-                    boolean transposed = false;
                     while (loop) {
                         System.out.print("""
                         What kind of matrix calculation do you want to do?\s
@@ -84,113 +64,15 @@ public class MAIN {
 
                         switch (userInputOfMatrixCalculations) {
                             case "SBuild" -> System.out.println(sBuild.getMsg());
-                            case "print" -> { for (int[] ints : arr) System.out.println(Arrays.toString(ints)); }
-                            case "copy" -> {
-                                int lengthOfArr = arr.length;
-                                int widthOfArr = arr[0].length;
-                                int[][] tempArray = new int[lengthOfArr][widthOfArr];
-                                for (int x = 0; x < lengthOfArr; x++) {
-                                    System.arraycopy(arr[x], 0, tempArray[x], 0, widthOfArr);
-                                }
-                                System.out.println("Operation was successful");
-                            }
-                            case "sortTran" -> {
-                                aFunc.setArr(arr);
-                                NullPointerException e =  aFunc.transpose();
-                                if (e != null) {
-                                    System.out.printf("An error has occurred: %s", e.getMessage());
-                                    break;
-                                }
-                                int[][] tempForSort = aFunc.getTempArr();
-
-                                if (!transposed) {
-                                    sBuild.append("\nThe Transposed array:\n", aFunc.getTempArr());
-                                    sBuild.append("\n");
-                                    transposed = true;
-                                }
-
-                                for (int[] ints : tempForSort) {
-                                    Functions.sort(ints, 0, ints.length - 1, true);
-                                }
-                                System.out.println("The sorted array of the transposed version is:\n");
-                                for (int[] ints : tempForSort) System.out.println(Arrays.toString(ints));
-
-                                sBuild.append("The sorted version of the transposed array is:\n", tempForSort);
-                                sBuild.append("\n");
-                            }
-                            case "transpose" -> {
-                                aFunc.setArr(arr);
-                                NullPointerException e = aFunc.transpose();
-                                if (e != null) {
-                                    System.out.printf("An error has occurred: %s\n", e.getMessage());
-                                    break;
-                                }
-                                System.out.println();
-                                for (int[] ints : arr) System.out.println(Arrays.toString(ints));
-                                System.out.println();
-                                for (int[] ints : aFunc.getTempArr()) System.out.println(Arrays.toString(ints));
-
-                                if (!transposed) {
-                                    transposed = true;
-                                    sBuild.append("\nThe transposed array:\n", aFunc.getTempArr());
-                                    sBuild.append("\n");
-                                }
-                            }
-                            case "sort" -> {
-                                int length = arr.length;
-                                int width = arr[0].length;
-                                int[][] tempArr = new int[length][width];
-                                for (int x = 0; x < length; x++) {
-                                    System.arraycopy(arr[x], 0, tempArr[x], 0, width);
-                                }
-
-                                System.out.println("The original array is:");
-                                for (int[] ints : tempArr) System.out.println(Arrays.toString(ints));
-                                System.out.println();
-                                for (int[] ints : tempArr) {
-                                    Functions.sort(ints, 0, ints.length - 1, true);
-                                }
-                                System.out.println("The new sorted array is: ");
-                                for (int[] ints : tempArr) System.out.println(Arrays.toString(ints));
-
-                                sBuild.append("The sorted version of the array is:\n", tempArr);
-                                sBuild.append("\n");
-                            }
-                            case "removePunctuation" -> {
-                                sc.nextLine();
-                                System.out.print("What string do you want put into an array?");
-                                String userIn = sc.nextLine();
-                                sBuild.setMsgWithPun(userIn);
-                                userIn = sBuild.replacePunctuation(userIn);
-                                sBuild.setMsg(userIn);
-
-                                String[] charArr = sBuild.splitMsg();
-                                String errorThrown = null;
-
-                                for (String error : charArr) {
-                                    switch (error) {
-                                        case "test" -> errorThrown = "no";
-                                        case "testing" -> errorThrown = "yes";
-                                        default -> errorThrown = "unknown";
-                                    }
-                                    if (errorThrown.equals("no") || errorThrown.equals("yes")) {
-                                        break;
-                                    }
-                                }
-                                System.out.println(Arrays.toString(charArr));
-                                System.out.println(errorThrown);
-                                System.out.printf("With Punctuation: %s\nWithout: %s", sBuild.getMsgWithPun(), sBuild.getMsg());
-                                System.out.println();
-                            }
-                            case "exit" -> {loop = false;}
+                            case "exit" -> loop = false;
+                            default -> matrixSecondary.executeOperation(userInputOfMatrixCalculations, aFunc, sBuild);
                         }
                         userChoice[1] = userInputOfMatrixCalculations;
                         if (!userInputOfMatrixCalculations.equals("exit")) {
                             System.out.print("Would you like to do another calculation on the same matrix?\n:::> ");
                             String userInputInLoop = sc.next();
                             switch (userInputInLoop) {
-                                case "yes" -> {
-                                }
+                                case "yes" -> { }
                                 case "no" -> loop = false;
                             }
                         }
