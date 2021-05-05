@@ -40,7 +40,6 @@ public class MAIN {
                     System.out.println("How big do you want the second dimension of the array to be?");
                     int b = sc.nextInt();
                     matrixSecondary.setArr(new int[z][b]);
-                    //int[][] arr = new int[z][b];
 
                     System.out.println("Do you want to input the array yourself or see an example? (myself/default)");
                     String userInput = sc.next();

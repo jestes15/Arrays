@@ -59,3 +59,12 @@ The sorted version of the transposed array is:
 
 End of this operation
 
+OS Name -> Windows 10
+OS Platform -> Windows 10 amd64
+Processor -> Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
+CPU Name Alternative -> Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Architecture -> AMD64
+Core Count -> 6
+Logical Processors -> 12
+Manufacturer -> ASUSTeK COMPUTER INC.
+Model -> ROG Zephyrus M15 GU502LV_GU502LV
