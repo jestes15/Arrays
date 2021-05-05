@@ -1,6 +1,5 @@
 package Functions;
 
-import BuffWriter.BuffWriter;
 import BuffWriter.BuffWriterImpl;
 
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 public class SBuildArray {
     private final StringBuilder msg;
 
-    private String Smsg = "";
+    private String string = "";
     private String msgWithPun = "";
 
     private String _dir;
@@ -52,23 +51,22 @@ public class SBuildArray {
         for (int[] ints : array) msg.append(Arrays.toString(ints)).append("\n");
     }
 
-    public void setMsg(String Smsg) {
-        this.Smsg = Smsg;
+    public void setMsg(String string) {
+        this.string = string;
+    }
+    public String getString() {
+        return string;
     }
 
-    public String getSMsg() {
-        return Smsg;
-    }
     public void setMsgWithPun(String userInput) {
         this.msgWithPun = userInput;
     }
-
     public String getMsgWithPun() {
         return msgWithPun;
     }
 
     public String[] splitMsg() {
-        return Smsg.split(" ");
+        return string.split(" ");
     }
 
     public String replacePunctuation(String userIn) {

@@ -59,6 +59,7 @@ public class OsUtils {
         writer.setData(data);
         writer.setDir(dir);
         writer.setFileName(fileName);
+        System.out.printf("Writing to -> %s%s%s", System.getProperty("user.dir"), writer.getDir(), writer.getFileName());
         try {
             writer.writeBufferedWriter();
         } catch (IOException e) {

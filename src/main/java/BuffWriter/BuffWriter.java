@@ -50,7 +50,7 @@ public interface BuffWriter {
             }
         }
     }
-    public static String createFile(String getDir, String getName) throws IOException {
+    static String createFile(String getDir, String getName) throws IOException {
         String errorPath = System.getProperty("user.dir") + "\\ERROR-CACHE\\ERROR-1.txt";
 
         try {
